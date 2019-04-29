@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace UniversityUnitTests
+namespace UniversityManager.Tests.EndToEnd
 {
     public class UnitTest1
     {

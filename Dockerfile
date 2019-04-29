@@ -10,9 +10,11 @@ RUN dotnet restore
  
 COPY . .
  
-RUN dotnet test ./UniversityUnitTests/UniversityUnitTests.csproj
+RUN dotnet test ./UniversityManager.Tests/UniversityManager.Tests.csproj
+RUN dotnet test ./UniversityManager.Tests.EndToEnd/UniversityManager.Tests.EndToEnd.csproj
+
  
-RUN dotnet publish ./UniversityManager/UniversityManager.csproj -o /publish/
+RUN dotnet publish ./UniversityManager.Api/UniversityManager.Api.csproj -o /publish/
  
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
  
