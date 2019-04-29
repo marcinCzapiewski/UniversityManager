@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using UniversityManager.Extensions;
 
 namespace UniversityManager
 {
@@ -33,6 +34,7 @@ namespace UniversityManager
                 c.SwaggerDoc("v1", new Info { Title = "University Manager API", Version = "v1" });
             });
 
+            services.ConfigureMySqlContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +45,6 @@ namespace UniversityManager
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "University Manager v1");
-                c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())
