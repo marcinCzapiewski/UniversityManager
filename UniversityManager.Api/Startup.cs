@@ -34,7 +34,9 @@ namespace UniversityManager
                 c.SwaggerDoc("v1", new Info { Title = "University Manager API", Version = "v1" });
             });
 
-            services.ConfigureMySqlContext(Configuration);
+            services.AddEntityFrameworkSqlServer()
+                    .AddEntityFrameworkInMemoryDatabase()
+                    .ConfigureDbContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
