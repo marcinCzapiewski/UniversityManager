@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UniversityManager.Infrastructure.EF;
 
 namespace UniversityManager.Extensions
 {
@@ -12,7 +9,7 @@ namespace UniversityManager.Extensions
     {
         public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(config.GetConnectionString("SqlServer")));
+            services.AddDbContext<UniversityManagerContext>(options => options.UseSqlServer(config.GetConnectionString("SqlServer")));
         }
     }
 }
