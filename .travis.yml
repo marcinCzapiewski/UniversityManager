@@ -10,4 +10,5 @@ install:
 
 script:
 - dotnet build
-- dotnet test UniversityUnitTests/UniversityUnitTests.csproj
+- dotnet test ./UniversityManager.Tests/UniversityManager.Tests.csproj
+- dotnet test ./UniversityManager.Tests.EndToEnd/UniversityManager.Tests.EndToEnd.csproj
