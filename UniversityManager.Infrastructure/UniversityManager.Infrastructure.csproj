@@ -18,9 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IoC\Modules\" />
     <Folder Include="DTOs\" />
-    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityManager.Core\UniversityManager.Core.csproj" />
   </ItemGroup>
 
 </Project>
