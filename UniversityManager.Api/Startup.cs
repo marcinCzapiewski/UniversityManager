@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using UniversityManager.Extensions;
+using UniversityManager.Infrastructure.IoC;
 
 namespace UniversityManager
 {
@@ -44,6 +45,7 @@ namespace UniversityManager
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
+            builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
