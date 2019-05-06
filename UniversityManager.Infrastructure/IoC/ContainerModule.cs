@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using UniversityManager.Infrastructure.IoC.Modules;
 using UniversityManager.Infrastructure.Mappers;

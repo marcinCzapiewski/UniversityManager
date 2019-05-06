@@ -6,7 +6,7 @@ namespace UniversityManager.Infrastructure.EF
     {
         private readonly SqlSettings _settings;
 
-        public UniversityManagerContext(DbContextOptions options, SqlSettings settings)
+        public UniversityManagerContext(DbContextOptions<UniversityManagerContext> options, SqlSettings settings)
             : base(options)
         {
             _settings = settings;
@@ -22,6 +22,7 @@ namespace UniversityManager.Infrastructure.EF
             }
 
             optionsBuilder.UseSqlServer(_settings.ConnectionString);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }
