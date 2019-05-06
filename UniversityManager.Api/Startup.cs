@@ -13,19 +13,24 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using UniversityManager.Extensions;
+using UniversityManager.Infrastructure.EF;
 using UniversityManager.Infrastructure.IoC;
 
 namespace UniversityManager
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile("appsettings.json", true, true)
+                    .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
         public IContainer ApplicationContainer { get; private set; }
 
 
@@ -41,7 +46,7 @@ namespace UniversityManager
 
             services.AddEntityFrameworkSqlServer()
                     .AddEntityFrameworkInMemoryDatabase()
-                    .ConfigureDbContext(Configuration);
+                    .AddDbContext<UniversityManagerContext>();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
