@@ -8,16 +8,24 @@ using UniversityManager.Infrastructure.Commands;
 namespace UniversityManager.Api.Controllers
 {
     [Route("[controller]")]
-    public class BaseController
+    public abstract class BaseController : Controller
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        protected Guid UserId 
+            => User?.Identity?.IsAuthenticated == true ? Guid.Parse(User.Identity.Name) : Guid.Empty;
 
-        public BaseController(ICommandDispatcher commandDispatcher)
+        protected BaseController(ICommandDispatcher commandDispatcher)
         {
             _commandDispatcher = commandDispatcher;
         }
 
         protected async Task Dispatch<T>(T command) where T : ICommand
-            => await _commandDispatcher.Dispatch(command);
+        {
+            if (command is IAuthenticatedCommand authenticatedCommand)
+            {
+                authenticatedCommand.UserId = UserId;
+            }
+            await _commandDispatcher.Dispatch(command);
+        }
     }
 }

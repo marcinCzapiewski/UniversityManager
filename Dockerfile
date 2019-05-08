@@ -22,4 +22,4 @@ WORKDIR /publish
  
 COPY --from=build-image /publish .
  
-ENTRYPOINT ["dotnet", "UniversityManager.dll"]]
+ENTRYPOINT ["dotnet", "UniversityManager.Api.dll"]]
