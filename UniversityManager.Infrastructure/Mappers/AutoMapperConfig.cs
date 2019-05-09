@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using UniversityManager.Core.Domain;
+using UniversityManager.Infrastructure.DTOs;
 
 namespace UniversityManager.Infrastructure.Mappers
 {
@@ -7,7 +9,7 @@ namespace UniversityManager.Infrastructure.Mappers
         public static IMapper Initialize()
             => new MapperConfiguration(config =>
             {
-
+                config.CreateMap<User, UserDto>();
             })
             .CreateMapper();
     }
