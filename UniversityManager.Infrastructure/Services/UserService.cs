@@ -22,21 +22,21 @@ namespace UniversityManager.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<UserDto> GetAsync(string email)
+        public async Task<UserDto> Get(string email)
         {
             var user = await _userRepository.Get(email);
 
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task<IEnumerable<UserDto>> BrowseAsync()
+        public async Task<IEnumerable<UserDto>> Browse()
         {
             var drivers = await _userRepository.GetAll();
 
             return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(drivers);
         }
 
-        public async Task LoginAsync(string email, string password)
+        public async Task Login(string email, string password)
         {
             var user = await _userRepository.Get(email);
             if (user == null)
@@ -54,7 +54,7 @@ namespace UniversityManager.Infrastructure.Services
                 "Invalid credentials");
         }
 
-        public async Task RegisterAsync(Guid userId, string email,
+        public async Task Register(Guid userId, string email,
             string username, string password, string role)
         {
             var user = await _userRepository.Get(email);

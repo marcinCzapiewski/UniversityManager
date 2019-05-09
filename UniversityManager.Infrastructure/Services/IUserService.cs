@@ -7,10 +7,10 @@ namespace UniversityManager.Infrastructure.Services
 {
     public interface IUserService : IService
     {
-        Task<UserDto> GetAsync(string email);
-        Task<IEnumerable<UserDto>> BrowseAsync();
-        Task RegisterAsync(Guid userId, string email,
+        Task<UserDto> Get(string email);
+        Task<IEnumerable<UserDto>> Browse();
+        Task Register(Guid userId, string email,
             string username, string password, string role);
-        Task LoginAsync(string email, string password);
+        Task Login(string email, string password);
     }
 }

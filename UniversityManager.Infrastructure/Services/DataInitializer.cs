@@ -18,7 +18,7 @@ namespace UniversityManager.Infrastructure.Services
 
         public async Task Seed()
         {
-            var users = await _userService.BrowseAsync();
+            var users = await _userService.Browse();
             if (users.Any())
             {
                 Logger.Trace("Data was already initialized.");
@@ -33,7 +33,7 @@ namespace UniversityManager.Infrastructure.Services
             {
                 var userId = Guid.NewGuid();
                 var username = $"user{i}";
-                await _userService.RegisterAsync(userId, $"user{i}@test.com",
+                await _userService.Register(userId, $"user{i}@test.com",
                                                  username, "secret", "user");
 
                 Logger.Trace($"Adding user: '{username}'.");
@@ -44,7 +44,7 @@ namespace UniversityManager.Infrastructure.Services
                 var userId = Guid.NewGuid();
                 var username = $"admin{i}";
                 Logger.Trace($"Adding admin: '{username}'.");
-                await _userService.RegisterAsync(userId, $"admin{i}@test.com",
+                await _userService.Register(userId, $"admin{i}@test.com",
                     username, "secret", "admin");
             }
             Logger.Trace("Data was initialized.");

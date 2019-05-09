@@ -29,11 +29,11 @@ namespace UniversityManager.Infrastructure.Handlers.Account
         public async Task Handle(Login command)
         {
             await _handler
-                .Run(async () => await _userService.LoginAsync(command.Email, command.Password))
+                .Run(async () => await _userService.Login(command.Email, command.Password))
                 .Next()
                 .Run(async () =>
                 {
-                    var user = await _userService.GetAsync(command.Email);
+                    var user = await _userService.Get(command.Email);
                     var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
                     _cache.SetJwt(command.TokenId, jwt);
                 })
