@@ -114,4 +114,3 @@ namespace UniversityManager.Core.Domain
         }
     }
 }
-}
