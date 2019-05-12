@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/marcinCzapiewski/UniversityManager.svg?branch=master)](https://travis-ci.org/marcinCzapiewski/UniversityManager)
 # UniversityManager
 
-This app serves to purposes. Firstly, it's the final project for university "Dabatase applications" classes. But more importantly, I intend to expand my knowledge as .NET dev by greatly exceeding what I am obliged to do. This repo contains API, later I'll create a client to consume it.
+This app serves two purposes. Firstly, it's the final project for university "Dabatase applications" classes. But more importantly, I intend to expand my knowledge as .NET dev by greatly exceeding what I am obliged to do. This repo contains API, later I'll create a client to consume it.
 
 Basing on https://github.com/MoienTajik/AspNetCore-Developer-Roadmap I want to learn new tools or/and improve current skills.
 
@@ -27,7 +27,7 @@ Basing on https://github.com/MoienTajik/AspNetCore-Developer-Roadmap I want to l
 * Swashbuckle
 * ... and probably much more
 
-## So far I did
+## So far I have done
 
 - [x] - created initial project structure
 - [x] - initially configured tools like Swashbuckle, AutoMapper, Autofaq etc.
