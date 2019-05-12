@@ -4,6 +4,6 @@ namespace UniversityManager.Infrastructure.Services
 {
     public interface IDataInitializer : IService
     {
-        Task SeedAsync();
+        Task Seed();
     }
 }

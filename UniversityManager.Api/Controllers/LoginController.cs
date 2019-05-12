@@ -10,7 +10,7 @@ namespace UniversityManager.Api.Controllers
 {
     public class LoginController : BaseController
     {
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
 
         public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache)
             : base(commandDispatcher)

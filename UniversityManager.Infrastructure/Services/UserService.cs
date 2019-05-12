@@ -9,7 +9,7 @@ using UniversityManager.Infrastructure.Exceptions;
 
 namespace UniversityManager.Infrastructure.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;

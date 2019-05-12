@@ -27,7 +27,6 @@ namespace UniversityManager.Infrastructure.Services
             }
 
             Logger.Trace("Initializing data...");
-            var tasks = new List<Task>();
 
             for (int i = 1; i <= 10; i++)
             {
@@ -48,11 +47,6 @@ namespace UniversityManager.Infrastructure.Services
                     username, "secret", "admin");
             }
             Logger.Trace("Data was initialized.");
-        }
-
-        public Task SeedAsync()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

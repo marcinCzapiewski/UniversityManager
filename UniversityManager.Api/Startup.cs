@@ -57,9 +57,6 @@ namespace UniversityManager
                     .AddEntityFrameworkInMemoryDatabase()
                     .AddDbContext<UniversityManagerContext>();
 
-            var token = Configuration.Get<JwtSettings>();
-            var secret = Encoding.ASCII.GetBytes(token.Key);
-
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -71,8 +68,8 @@ namespace UniversityManager
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Key)),
-                    ValidIssuer = token.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("super_secret_key_123!")),
+                    ValidIssuer = "http://localhost:5000",
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -109,12 +106,8 @@ namespace UniversityManager
                 app.UseHsts();
             }
 
-            var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
-            if (generalSettings.SeedData)
-            {
-                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
-                dataInitializer.SeedAsync();
-            }
+            var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+            dataInitializer.Seed();
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
