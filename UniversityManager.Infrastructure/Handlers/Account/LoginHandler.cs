@@ -27,8 +27,7 @@ namespace UniversityManager.Infrastructure.Handlers.Account
         }
 
         public async Task Handle(Login command)
-        {
-            await _handler
+            => await _handler
                 .Run(async () => await _userService.Login(command.Email, command.Password))
                 .Next()
                 .Run(async () =>
@@ -39,6 +38,5 @@ namespace UniversityManager.Infrastructure.Handlers.Account
                 })
                 .Next()
                 .ExecuteAllAsync();
-        }
     }
 }

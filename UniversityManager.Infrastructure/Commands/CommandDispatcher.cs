@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using NLog;
 
 namespace UniversityManager.Infrastructure.Commands
 {

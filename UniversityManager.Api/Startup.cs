@@ -21,7 +21,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using UniversityManager.Infrastructure.EF;
 using UniversityManager.Infrastructure.IoC;
 using UniversityManager.Infrastructure.Services;
-using UniversityManager.Infrastructure.Settings;
 
 namespace UniversityManager
 {

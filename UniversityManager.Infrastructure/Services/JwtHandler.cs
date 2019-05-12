@@ -5,19 +5,11 @@ using System.Security.Claims;
 using System.Text;
 using UniversityManager.Infrastructure.DTOs;
 using UniversityManager.Infrastructure.Extentions;
-using UniversityManager.Infrastructure.Settings;
 
 namespace UniversityManager.Infrastructure.Services
 {
     public class JwtHandler : IJwtHandler
     {
-        private readonly JwtSettings _settings;
-
-        public JwtHandler(JwtSettings settings)
-        {
-            _settings = settings;
-        }
-
         public JwtDto CreateToken(Guid userId, string role)
         {
             var now = DateTime.UtcNow;
@@ -30,11 +22,11 @@ namespace UniversityManager.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
             };
 
-            var expires = now.AddMinutes(_settings.ExpiryMinutes);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),
+            var expires = now.AddMinutes(5);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_secret_key_123!")),
                 SecurityAlgorithms.HmacSha256);
             var jwt = new JwtSecurityToken(
-                issuer: _settings.Issuer,
+                issuer: "http://localhost:5000",
                 claims: claims,
                 notBefore: now,
                 expires: expires,
