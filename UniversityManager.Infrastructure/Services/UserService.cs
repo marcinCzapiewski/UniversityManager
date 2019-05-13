@@ -66,7 +66,19 @@ namespace UniversityManager.Infrastructure.Services
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
-            user = new User(userId, email, username, role, hash, salt);
+            switch (role)
+            {
+                case "student":
+                    user = new Student(userId, email, username, role, hash, salt);
+                    break;
+                case "lecturer":
+                    user = new Lecturer(userId, email, username, role, hash, salt);
+                    break;
+                default:
+                    user = new User(userId, email, username, role, hash, salt);
+                    break;
+            }
+
             await _userRepository.Add(user);
         }
     }

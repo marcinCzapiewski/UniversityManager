@@ -7,7 +7,7 @@ using UniversityManager.Infrastructure.Services;
 
 namespace UniversityManager.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "admin")]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;
