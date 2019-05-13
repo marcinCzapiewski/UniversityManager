@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityManager.Infrastructure.EF;
 
 namespace UniversityManager.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversityManagerContext))]
-    partial class UniversityManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20190513125142_MoveAttendanceToSeparateTable")]
+    partial class MoveAttendanceToSeparateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,15 +28,9 @@ namespace UniversityManager.Infrastructure.Migrations
 
                     b.Property<Guid?>("LectureId");
 
-                    b.Property<bool>("Present");
-
-                    b.Property<Guid?>("StudentId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LectureId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Attendances");
                 });
@@ -207,11 +203,15 @@ namespace UniversityManager.Infrastructure.Migrations
                 {
                     b.HasBaseType("UniversityManager.Core.Domain.User");
 
+                    b.Property<Guid?>("AttendanceId");
+
                     b.Property<Guid?>("FieldStudyId");
 
                     b.Property<int>("IndexNumber");
 
                     b.Property<int>("Semester");
+
+                    b.HasIndex("AttendanceId");
 
                     b.HasIndex("FieldStudyId");
 
@@ -223,10 +223,6 @@ namespace UniversityManager.Infrastructure.Migrations
                     b.HasOne("UniversityManager.Core.Domain.Lecture", "Lecture")
                         .WithMany()
                         .HasForeignKey("LectureId");
-
-                    b.HasOne("UniversityManager.Core.Domain.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("UniversityManager.Core.Domain.Faculty", b =>
@@ -293,6 +289,10 @@ namespace UniversityManager.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityManager.Core.Domain.Student", b =>
                 {
+                    b.HasOne("UniversityManager.Core.Domain.Attendance")
+                        .WithMany("StudentsPresent")
+                        .HasForeignKey("AttendanceId");
+
                     b.HasOne("UniversityManager.Core.Domain.FieldStudy", "FieldStudy")
                         .WithMany()
                         .HasForeignKey("FieldStudyId");

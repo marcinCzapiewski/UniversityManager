@@ -3,41 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityManager.Infrastructure.EF;
 
 namespace UniversityManager.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversityManagerContext))]
-    partial class UniversityManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20190513124543_AddLectureAndLectureRoomV2")]
+    partial class AddLectureAndLectureRoomV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.Attendance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("LectureId");
-
-                    b.Property<bool>("Present");
-
-                    b.Property<Guid?>("StudentId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LectureId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Attendances");
-                });
 
             modelBuilder.Entity("UniversityManager.Core.Domain.Faculty", b =>
                 {
@@ -211,22 +193,15 @@ namespace UniversityManager.Infrastructure.Migrations
 
                     b.Property<int>("IndexNumber");
 
+                    b.Property<Guid?>("LectureId");
+
                     b.Property<int>("Semester");
 
                     b.HasIndex("FieldStudyId");
 
+                    b.HasIndex("LectureId");
+
                     b.HasDiscriminator().HasValue("Student");
-                });
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.Attendance", b =>
-                {
-                    b.HasOne("UniversityManager.Core.Domain.Lecture", "Lecture")
-                        .WithMany()
-                        .HasForeignKey("LectureId");
-
-                    b.HasOne("UniversityManager.Core.Domain.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("UniversityManager.Core.Domain.Faculty", b =>
@@ -296,6 +271,10 @@ namespace UniversityManager.Infrastructure.Migrations
                     b.HasOne("UniversityManager.Core.Domain.FieldStudy", "FieldStudy")
                         .WithMany()
                         .HasForeignKey("FieldStudyId");
+
+                    b.HasOne("UniversityManager.Core.Domain.Lecture")
+                        .WithMany("Attendance")
+                        .HasForeignKey("LectureId");
                 });
 #pragma warning restore 612, 618
         }

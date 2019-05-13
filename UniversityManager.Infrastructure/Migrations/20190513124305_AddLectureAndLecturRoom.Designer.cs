@@ -3,41 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityManager.Infrastructure.EF;
 
 namespace UniversityManager.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversityManagerContext))]
-    partial class UniversityManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20190513124305_AddLectureAndLecturRoom")]
+    partial class AddLectureAndLecturRoom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.Attendance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("LectureId");
-
-                    b.Property<bool>("Present");
-
-                    b.Property<Guid?>("StudentId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LectureId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Attendances");
-                });
 
             modelBuilder.Entity("UniversityManager.Core.Domain.Faculty", b =>
                 {
@@ -91,42 +73,6 @@ namespace UniversityManager.Infrastructure.Migrations
                     b.HasIndex("StudySubjectId");
 
                     b.ToTable("Grades");
-                });
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.Lecture", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("LectureRoomId");
-
-                    b.Property<Guid?>("LecturerId");
-
-                    b.Property<Guid?>("StudySubjectId");
-
-                    b.Property<DateTime>("When");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LectureRoomId");
-
-                    b.HasIndex("LecturerId");
-
-                    b.HasIndex("StudySubjectId");
-
-                    b.ToTable("Lectures");
-                });
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.LectureRoom", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Number");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LectureRooms");
                 });
 
             modelBuilder.Entity("UniversityManager.Core.Domain.StudySubject", b =>
@@ -218,17 +164,6 @@ namespace UniversityManager.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Student");
                 });
 
-            modelBuilder.Entity("UniversityManager.Core.Domain.Attendance", b =>
-                {
-                    b.HasOne("UniversityManager.Core.Domain.Lecture", "Lecture")
-                        .WithMany()
-                        .HasForeignKey("LectureId");
-
-                    b.HasOne("UniversityManager.Core.Domain.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId");
-                });
-
             modelBuilder.Entity("UniversityManager.Core.Domain.Faculty", b =>
                 {
                     b.HasOne("UniversityManager.Core.Domain.University")
@@ -252,21 +187,6 @@ namespace UniversityManager.Infrastructure.Migrations
                     b.HasOne("UniversityManager.Core.Domain.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId");
-
-                    b.HasOne("UniversityManager.Core.Domain.StudySubject", "StudySubject")
-                        .WithMany()
-                        .HasForeignKey("StudySubjectId");
-                });
-
-            modelBuilder.Entity("UniversityManager.Core.Domain.Lecture", b =>
-                {
-                    b.HasOne("UniversityManager.Core.Domain.LectureRoom", "LectureRoom")
-                        .WithMany()
-                        .HasForeignKey("LectureRoomId");
-
-                    b.HasOne("UniversityManager.Core.Domain.Lecturer", "Lecturer")
-                        .WithMany()
-                        .HasForeignKey("LecturerId");
 
                     b.HasOne("UniversityManager.Core.Domain.StudySubject", "StudySubject")
                         .WithMany()

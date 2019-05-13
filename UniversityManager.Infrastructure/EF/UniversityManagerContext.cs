@@ -14,7 +14,9 @@ namespace UniversityManager.Infrastructure.EF
         public DbSet<Student> Students { get; set; }
         public DbSet<StudySubject> StudySubject { get; set; }
         public DbSet<University> Universities { get; set; }
-
+        public DbSet<LectureRoom> LectureRooms { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
 
         public UniversityManagerContext(DbContextOptions<UniversityManagerContext> options, SqlSettings settings)
             : base(options)
