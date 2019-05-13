@@ -6,7 +6,7 @@ namespace UniversityManager.Infrastructure.EF
     public class UniversityManagerContext : DbContext
     {
         private readonly SqlSettings _settings;
-        
+
         public DbSet<User> Users { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Grade> Grades { get; set; }
@@ -35,6 +35,18 @@ namespace UniversityManager.Infrastructure.EF
 
             optionsBuilder.UseSqlServer(_settings.ConnectionString);
             base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Faculty>()
+                .Property(p => p.Name)
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Student>()
+                .Property(p => p.IndexNumber)
+                .HasMaxLength(6)
+                .IsFixedLength();
         }
     }
 }
