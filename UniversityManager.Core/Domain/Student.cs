@@ -7,6 +7,7 @@ namespace UniversityManager.Core.Domain
     {
         public FieldStudy FieldStudy { get; protected set; }
         public int Semester { get; protected set; }
+        public int IndexNumber { get; protected set; }
 
         protected Student()
         {
