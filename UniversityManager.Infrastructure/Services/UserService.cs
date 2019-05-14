@@ -16,11 +16,12 @@ namespace UniversityManager.Infrastructure.Services
         private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IEncrypter encrypter, IMapper mapper)
+        public UserService(IUserRepository userRepository, IEncrypter encrypter, IMapper mapper, ILoginRepository loginRepository)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;
             _mapper = mapper;
+            _loginRepository = loginRepository;
         }
 
         public async Task<UserDto> Get(string email)

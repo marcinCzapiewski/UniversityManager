@@ -6,7 +6,9 @@ using Microsoft.Extensions.Caching.Memory;
 using NLog;
 using UniversityManager.Infrastructure.Commands;
 using UniversityManager.Infrastructure.Commands.Account;
+using UniversityManager.Infrastructure.DTOs;
 using UniversityManager.Infrastructure.Extentions;
+using UniversityManager.Infrastructure.Services;
 
 namespace UniversityManager.Api.Controllers
 {
@@ -39,22 +41,6 @@ namespace UniversityManager.Api.Controllers
             var logins = await _loginsService.Browse();
 
             return Json(logins);
-        }
-
-        [HttpPost("{logout}")]
-        public IActionResult Logout(Guid token)
-        {
-            var jwt = _cache.GetJwt(token);
-            if (jwt == null)
-            {
-                return BadRequest();
-            }
-
-            jwt.Expires = 0;
-
-            _cache.SetJwt(token, jwt);
-
-            return Ok();
         }
     }
 }

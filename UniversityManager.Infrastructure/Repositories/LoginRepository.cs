@@ -30,6 +30,6 @@ namespace UniversityManager.Infrastructure.Repositories
             => await _context.Logins.SingleOrDefaultAsync(x => x.User.Id == user.Id);
 
         public async Task<IEnumerable<Login>> GetAll()
-            => await _context.Logins.ToListAsync();
+            => await _context.Logins.Include(x => x.User).ToListAsync();
     }
 }

@@ -22,7 +22,7 @@ namespace UniversityManager.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
             };
 
-            var expires = now.AddMinutes(5);
+            var expires = now.AddMinutes(30);
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_secret_key_123!")),
                 SecurityAlgorithms.HmacSha256);
             var jwt = new JwtSecurityToken(
