@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using NLog;
@@ -12,8 +13,7 @@ namespace UniversityManager.Api.Controllers
     public class LoginController : BaseController
     {
         private readonly IMemoryCache _cache;
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
+        private readonly ILoginsService _loginsService;
 
         public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache)
             : base(commandDispatcher)
@@ -29,6 +29,15 @@ namespace UniversityManager.Api.Controllers
             var jwt = _cache.GetJwt(command.TokenId);
 
             return Json(jwt);
+        }
+
+        [Authorize(Policy = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var logins = await _loginsService.Browse();
+
+            return Json(logins);
         }
     }
 }

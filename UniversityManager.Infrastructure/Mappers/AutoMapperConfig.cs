@@ -10,6 +10,7 @@ namespace UniversityManager.Infrastructure.Mappers
             => new MapperConfiguration(config =>
             {
                 config.CreateMap<User, UserDto>();
+                config.CreateMap<Login, LoginDto>();
             })
             .CreateMapper();
     }

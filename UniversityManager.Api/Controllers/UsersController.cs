@@ -38,6 +38,7 @@ namespace UniversityManager.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
             await Dispatch(command);
