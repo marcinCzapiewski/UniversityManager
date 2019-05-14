@@ -46,8 +46,8 @@ namespace UniversityManager.Api.Controllers
             return Created($"users/{command.Email}", null);
         }
 
-        [HttpPut]
         [Authorize]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody]UpdateUser command)
         {
             await Dispatch(command);
@@ -55,9 +55,9 @@ namespace UniversityManager.Api.Controllers
             return Accepted($"users/{command.NewEmail}", null);
         }
 
-        [HttpPut("password")]
         [Authorize]
-        public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
+        [HttpPut("{password}")]
+        public async Task<IActionResult> ChangePassword([FromBody]ChangeUserPassword command)
         {
             await Dispatch(command);
 

@@ -15,10 +15,11 @@ namespace UniversityManager.Api.Controllers
         private readonly IMemoryCache _cache;
         private readonly ILoginsService _loginsService;
 
-        public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache)
+        public LoginController(ICommandDispatcher commandDispatcher, IMemoryCache cache, ILoginsService loginsService)
             : base(commandDispatcher)
         {
             _cache = cache;
+            _loginsService = loginsService;
         }
 
         [HttpPost]
@@ -38,6 +39,22 @@ namespace UniversityManager.Api.Controllers
             var logins = await _loginsService.Browse();
 
             return Json(logins);
+        }
+
+        [HttpPost("{logout}")]
+        public IActionResult Logout(Guid token)
+        {
+            var jwt = _cache.GetJwt(token);
+            if (jwt == null)
+            {
+                return BadRequest();
+            }
+
+            jwt.Expires = 0;
+
+            _cache.SetJwt(token, jwt);
+
+            return Ok();
         }
     }
 }
