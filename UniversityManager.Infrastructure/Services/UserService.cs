@@ -12,6 +12,7 @@ namespace UniversityManager.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ILoginRepository _loginRepository;
         private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
 
@@ -48,10 +49,12 @@ namespace UniversityManager.Infrastructure.Services
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password == hash)
             {
+                await _loginRepository.Add(new Login(user));
                 return;
             }
             throw new ServiceException(ErrorCodes.InvalidCredentials,
                 "Invalid credentials");
+
         }
 
         public async Task Register(Guid userId, string email,
