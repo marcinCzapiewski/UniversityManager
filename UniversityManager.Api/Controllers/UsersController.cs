@@ -7,7 +7,6 @@ using UniversityManager.Infrastructure.Services;
 
 namespace UniversityManager.Api.Controllers
 {
-    [Authorize(Policy = "admin")]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;
@@ -19,6 +18,7 @@ namespace UniversityManager.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "admin")]
         public async Task<IActionResult> Get()
         {
             var users = await _userService.Browse();
@@ -27,6 +27,7 @@ namespace UniversityManager.Api.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize(Policy = "admin")]
         public async Task<IActionResult> Get(string email)
         {
             var user = await _userService.Get(email);
@@ -38,12 +39,29 @@ namespace UniversityManager.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
             await Dispatch(command);
 
             return Created($"users/{command.Email}", null);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Put([FromBody]UpdateUser command)
+        {
+            await Dispatch(command);
+
+            return Accepted($"users/{command.NewEmail}", null);
+        }
+
+        [HttpPut("password")]
+        [Authorize]
+        public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
+        {
+            await Dispatch(command);
+
+            return NoContent();
         }
     }
 }

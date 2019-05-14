@@ -84,5 +84,41 @@ namespace UniversityManager.Infrastructure.Services
 
             await _userRepository.Add(user);
         }
+
+        public async Task Update(UserDto user)
+        {
+            var userToUpdate = await GetUser(user.Id);
+
+            await _userRepository.Update(userToUpdate);
+        }
+
+        public async Task ChangePassword(UserDto user, string newPassword)
+        {
+            var userToUpdate = await GetUser(user.Id);
+            if (userToUpdate == null)
+            {
+                throw new ServiceException(ErrorCodes.EmailInUse,
+                    $"User with email: '{user.Email}' does not exist.");
+            }
+
+            var salt = _encrypter.GetSalt(newPassword);
+            var hash = _encrypter.GetHash(newPassword, salt);
+
+            userToUpdate = new User(userToUpdate.Id, userToUpdate.Email, userToUpdate.Username, userToUpdate.Role, hash, salt);
+
+            await _userRepository.Update(userToUpdate);
+        }
+
+        private async Task<User> GetUser(Guid id)
+        {
+            var user = await _userRepository.Get(id);
+            if (user == null)
+            {
+                throw new ServiceException(ErrorCodes.EmailInUse,
+                    $"User with email: '{user.Email}' does not exist.");
+            }
+
+            return user;
+        }
     }
 }
