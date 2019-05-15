@@ -15,9 +15,10 @@ namespace UniversityManager.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IFieldStudyRepository _fieldStudyRepository;
 
-        public StudySubjectService(IStudySubjectRepository studySubjectRepository, IMapper mapper)
+        public StudySubjectService(IStudySubjectRepository studySubjectRepository, IMapper mapper, IFieldStudyRepository fieldStudyRepository)
         {
             _studySubjectRepository = studySubjectRepository;
+            _fieldStudyRepository = fieldStudyRepository;
             _mapper = mapper;
         }
 
