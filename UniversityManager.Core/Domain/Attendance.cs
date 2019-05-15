@@ -13,5 +13,13 @@ namespace UniversityManager.Core.Domain
         {
 
         }
+
+        public Attendance(Lecture lecture, Student student, bool present)
+        {
+            Id = Guid.NewGuid();
+            Lecture = lecture;
+            Student = student;
+            Present = present;
+        }
     }
 }

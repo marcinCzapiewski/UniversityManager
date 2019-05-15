@@ -7,7 +7,7 @@ namespace UniversityManager.Infrastructure.DTOs
     {
         public Guid Id { get; set; }
         public string Name { get; protected set; }
-        public FieldStudy FieldStudy { get; protected set; }
+        public Guid FieldStudyId { get; protected set; }
         public int Semester { get; protected set; }
     }
 }

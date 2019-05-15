@@ -17,10 +17,11 @@ namespace UniversityManager.Infrastructure.Services
         private readonly IFacultyRepository _facultyRepository;
         private readonly IMapper _mapper;
 
-        public FieldStudyService(IFieldStudyRepository fieldStudyRepository, IMapper mapper)
+        public FieldStudyService(IFieldStudyRepository fieldStudyRepository, IMapper mapper, IFacultyRepository facultyRepository)
         {
             _fieldStudyRepository = fieldStudyRepository;
             _mapper = mapper;
+            _facultyRepository = facultyRepository;
         }
 
         public async Task Add(string name, Guid facultyId)
