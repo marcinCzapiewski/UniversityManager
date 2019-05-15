@@ -15,5 +15,13 @@ namespace UniversityManager.Core.Domain
         {
 
         }
+
+        public StudySubject(string name, FieldStudy fieldStudy, int semester)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            FieldStudy = fieldStudy;
+            Semester = semester;
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace UniversityManager.Infrastructure.Mappers
             {
                 config.CreateMap<User, UserDto>();
                 config.CreateMap<Login, LoginDto>();
+                config.CreateMap<StudySubject, StudySubjectDto>();
             })
             .CreateMapper();
     }

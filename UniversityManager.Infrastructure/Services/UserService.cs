@@ -33,9 +33,9 @@ namespace UniversityManager.Infrastructure.Services
 
         public async Task<IEnumerable<UserDto>> Browse()
         {
-            var drivers = await _userRepository.GetAll();
+            var users = await _userRepository.GetAll();
 
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(drivers);
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
 
         public async Task Login(string email, string password)

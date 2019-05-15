@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UniversityManager.Infrastructure.Commands.Users
+﻿namespace UniversityManager.Infrastructure.Commands.Users
 {
     public class CreateUser : ICommand
     {
@@ -10,6 +6,5 @@ namespace UniversityManager.Infrastructure.Commands.Users
         public string Password { get; set; }
         public string Username { get; set; }
         public string Role { get; set; }
-
     }
 }
